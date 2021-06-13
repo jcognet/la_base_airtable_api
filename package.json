@@ -1,0 +1,13 @@
+{
+  "name": "airtable_api",
+  "version": "1.0.0",
+  "description": "API servant à requêter et mettre à jour le Airtable de la base",
+  "main": "index.js",
+  "keywords": [],
+  "author": "Jérôme / https://www.github.com/jcognet",
+  "license": "ISC",
+  "dependencies": {
+    "airtable": "^0.11.1",
+    "dotenv": "^10.0.0"
+  }
+}

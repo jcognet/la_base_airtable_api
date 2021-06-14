@@ -1,6 +1,6 @@
 require('dotenv').config();
 const Airtable = require('airtable');
-const oldBenevole = require('./lib/old_benevole.js');
+const oldBenevole = require('../lib/old_benevole.js');
 
 const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BENEVOLE_TABLE_KEY);
 const OLD_BENEVOLE_TABLE = 'Anciens bénévoles à synchro';

@@ -5,6 +5,9 @@
   "main": "index.js",
   "keywords": [],
   "author": "Jérôme / https://www.github.com/jcognet",
+  "scripts": {
+    "synch_old_benevole": "node command/synch_old_benevole.js"
+  },
   "license": "ISC",
   "dependencies": {
     "airtable": "^0.11.1",

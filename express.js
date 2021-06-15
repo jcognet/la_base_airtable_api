@@ -8,7 +8,14 @@ const errorhandler = require('errorhandler');
 const basicAuth = require('express-basic-auth');
 const user = require('./lib/user.js');
 
+app.set('views', './views');
+app.set("twig options", {
+    allow_async: true, // Allow asynchronous compiling
+    strict_variables: false
+});
+
 app.use(compression());
+app.use(express.static('public'));
 app.use(basicAuth({
     users: user.getListUsers(),
     unauthorizedResponse: getUnauthorizedResponse,
@@ -28,10 +35,11 @@ if (process.env.NODE_ENV === 'development') {
     console.log('Start middleware express debug');
 }
 
+
 app.get('/', (req, res) => {
-    res.send('Bienvenue à la base!');
+    res.render('index.html.twig');
 });
-app.use('/command', require('./controller/command'));
+app.use('/benevole', require('./controller/benevole'));
 
 app.listen(port, () => {
     console.log(`Express app listening at http://localhost:${port}`);

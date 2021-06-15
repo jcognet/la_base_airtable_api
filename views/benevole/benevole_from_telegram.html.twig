@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Bénévoles de Telegram' %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <h1>Bénévoles de Telegram</h1>
+    {% if listeBenevoles|length >0 %}
+        <table class="striped highlight">
+            <thead>
+                <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Telegram id</th>
+                    <th>Dernière connexion</th>
+                    <th>Canaux</th>
+                </tr>
+            </thead>
+            {% for benevole in listeBenevoles %}
+                <tr>
+                    <td>{{ benevole.firstName }}</td>
+                    <td>{{ benevole.lastName }}</td>
+                    <td>{{ benevole.username }}</td>
+                    <td>
+                        {{ benevole.lastConnection|date("m/d/Y à H:i:s") }}
+                    </td>
+                    <td>{{ benevole.channels }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

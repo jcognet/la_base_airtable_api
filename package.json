@@ -20,7 +20,8 @@
     "dotenv": "^10.0.0",
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",
-    "express-basic-auth": "^1.2.0"
+    "express-basic-auth": "^1.2.0",
+    "twig": "^1.15.4"
   },
   "devDependencies": {
     "express-debug": "^1.1.1"

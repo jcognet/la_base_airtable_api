@@ -7,6 +7,7 @@ const compression = require('compression');
 const errorhandler = require('errorhandler');
 const basicAuth = require('express-basic-auth');
 const user = require('./lib/user.js');
+const navigation = require('./extension/navigation.js');
 
 app.set('views', './views');
 app.set("twig options", {
@@ -22,6 +23,14 @@ app.use(basicAuth({
     challenge: true,
     realm: 'lasdBafse!Paris123',
 }));
+// add url to variable passed to twig
+app.use ((req, res, next) => {
+    res.locals.url = req.originalUrl;
+    res.locals.host = req.get('host');
+    res.locals.protocol = req.protocol;
+    next();
+});
+
 function getUnauthorizedResponse(req) {
     return req.auth
         ? ('Credentials ' + req.auth.user + ':' + req.auth.password + ' rejected')

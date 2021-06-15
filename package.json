@@ -7,6 +7,8 @@
   "author": "Jérôme / https://www.github.com/jcognet",
   "scripts": {
     "synch_old_benevole": "node command/synch_old_benevole.js",
+    "liste_user_accessible_by_account": "node command/telegram/liste_user_accessible_by_account.js",
+    "get_user_hash": "node command/telegram/get_user_hash.js",
     "dev_start": "NODE_ENV=development DEBUG=express:* node express.js",
     "prod_start": "NODE_ENV=production node express.js"
   },
@@ -21,6 +23,8 @@
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",
     "express-basic-auth": "^1.2.0",
+    "input": "^1.0.1",
+    "telegram": "^1.7.6",
     "twig": "^1.15.4"
   },
   "devDependencies": {

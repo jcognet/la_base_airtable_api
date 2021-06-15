@@ -9,19 +9,22 @@
     {% set isPlural = listOldBenevoleSynch.lenght>1 %}
     {{ listOldBenevoleSynch|length }} ancien{{ isPlural ? 's':'' }} bénévole{{ isPlural ? 's':'' }} {{ isPlural ? 'ont':'a' }} été synchronisé&middot;e{{ isPlural ? 's':'' }}.
     {% if listOldBenevoleSynch|length >0 %}
-        <h2>Liste {{ isPlural ? 'des':'du/de la' }} bénévole{{ isPlural ? 's':'' }} synchronisé&middot;e{{ isPlural ? '&middot;s':'' }}</h2>
-        <table style="width: 100%">
-            <tr>
-                <th>Prénom</th>
-                <th>Nom</th>
-                <th>Email</th>
-                <th>Telegram</th>
-                <th>Téléphone</th>
-            </tr>
+        <h2>Liste {{ isPlural ? 'des':'du/de la' }} bénévole{{ isPlural ? 's':'' }}
+            synchronisé&middot;e{{ isPlural ? '&middot;s':'' }}</h2>
+        <table class="striped highlight">
+            <thead>
+                <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Telegram</th>
+                    <th>Téléphone</th>
+                </tr>
+            </thead>
             {% for benevole in listOldBenevoleSynch %}
                 <tr>
-                    <td>{{ attribute(benevole.fields, 'Prénom (from Bénévoles)')}}</td>
-                    <td>{{ attribute(benevole.fields, 'Nom (from Bénévoles)')}}</td>
+                    <td>{{ attribute(benevole.fields, 'Prénom (from Bénévoles)') }}</td>
+                    <td>{{ attribute(benevole.fields, 'Nom (from Bénévoles)') }}</td>
                     <td>{{ attribute(benevole.fields,'Email') }}</td>
                     <td>{{ attribute(benevole.fields,'Id telegram') }}</td>
                     <td>{{ attribute(benevole.fields,'Téléphone') }}</td>

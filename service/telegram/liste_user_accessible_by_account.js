@@ -111,7 +111,7 @@ const fetchFromTelegram = async () => {
     return benevolesWithChannels;
 };
 
-exports.fetchFromTelegram = fetchFromTelegram();
+exports.fetchFromTelegram = fetchFromTelegram;
 exports.getTelegramBenevole = () => {
     if (fs.existsSync(benevoleFilePath)) {
         console.log('Got data from file.');

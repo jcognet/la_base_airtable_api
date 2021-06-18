@@ -9,6 +9,7 @@
     "synch_old_benevole": "node command/synch_old_benevole.js",
     "liste_user_accessible_by_account": "node command/telegram/liste_user_accessible_by_account.js",
     "get_user_hash": "node command/telegram/get_user_hash.js",
+    "fetch_img_com": "node command/telegram/fetch_img_com.js",
     "dev_start": "NODE_ENV=development DEBUG=express:* node express.js",
     "prod_start": "NODE_ENV=production node express.js"
   },

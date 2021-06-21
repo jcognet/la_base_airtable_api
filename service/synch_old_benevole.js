@@ -50,15 +50,12 @@ exports.synchronize = () => {
                     benevoleAirTable
                 ]);
 
-                /* TODO : remove comment
                 base(OLD_BENEVOLE_TABLE).update([{
                     id: oldBenevole.id,
                     fields: {
                         "Synchronisé ?": true
                     }
                 }]);
-
-                 */
             });
 
             return resolve(listOldBenevoleNotSynch);

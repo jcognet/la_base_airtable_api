@@ -6,7 +6,7 @@ const input = require('input');
 const fs = require('fs');
 const path = require('path');
 
-const apiId = process.env.TELEGRAM_API_ID;
+const apiId = parseInt(process.env.TELEGRAM_API_ID);
 const apiHash = process.env.TELEGRAM_API_HASH;
 
 const stringSession = new StringSession(process.env.TELEGRAM_USER_SESSION);
@@ -47,21 +47,42 @@ const fetchFromTelegram = async () => {
 
             let benevoles = [];
             for await (const benevole of benevolesInChannel) {
-                let lastSeen;
+                let message;
+                if (benevole.deleted) {
+                    continue;
+                }
+
+                let lastSeenTimestamp;
                 if (benevole.status) {
                     if (benevole.status.wasOnline !== undefined) {
-                        lastSeen = new Date(benevole.status.wasOnline * 1000);
+                        lastSeenTimestamp = benevole.status.wasOnline * 1000;
                     }
 
-                    if (lastSeen === undefined) {
-                        const today = new Date();
+                    if (lastSeenTimestamp === undefined) {
                         switch (benevole.status.className) {
                             case 'UserStatusRecently':
                             case 'UserStatusOnline':
-                                lastSeen = new Date();
+                                lastSeenTimestamp = Date.now();
                                 break;
+                            case 'UserStatusLastWeek':
+                                const dLastWeek = new Date();
+                                lastSeenTimestamp = dLastWeek.setDate(dLastWeek.getDate() - 7);
+                                break;
+                            case 'UserStatusLastMonth':
+                                const dLastMonth = new Date();
+                                lastSeenTimestamp = dLastMonth.setDate(dLastMonth.getDate() - 30);
+                                break;
+                            default:
+                                console.error(benevole);
+                                throw new Error(`Unknown status: ${benevole.status.className} for benevole ${benevole.id}`);
                         }
                     }
+                }
+
+                if (lastSeenTimestamp === undefined) {
+                    console.warn(benevole);
+                    lastSeenTimestamp = benevole.participant.date * 1000;
+                    message = 'Date inconnue de dernière connexion';
                 }
 
                 benevoles = [...benevoles, {
@@ -69,13 +90,16 @@ const fetchFromTelegram = async () => {
                     'firstName': benevole.firstName,
                     'lastName': benevole.lastName,
                     'id': benevole.id,
-                    'lastConnection': lastSeen,
+                    'lastConnection': new Date(lastSeenTimestamp),
+                    'lastConnectionTimeStamp': lastSeenTimestamp,
+                    'message': message,
                     'channelId': channelId
                 }];
             }
 
             return benevoles;
         } catch (Error) {
+            console.error(Error);
             console.error(`The account used for querying doesn't access to ${LIST_CHANNEL_ID[channelId]}`)
             return [];
         }
@@ -98,7 +122,7 @@ const fetchFromTelegram = async () => {
         });
     });
 
-    benevolesWithChannels.sort((a, b) => a.lastConnection - b.lastConnection);
+    benevolesWithChannels.sort((a, b) => a.lastConnectionTimeStamp - b.lastConnectionTimeStamp);
 
     const benevolesJSON = JSON.stringify(benevolesWithChannels);
 
@@ -111,7 +135,7 @@ const fetchFromTelegram = async () => {
     return benevolesWithChannels;
 };
 
-exports.fetchFromTelegram = fetchFromTelegram();
+exports.fetchFromTelegram = fetchFromTelegram;
 exports.getTelegramBenevole = () => {
     if (fs.existsSync(benevoleFilePath)) {
         console.log('Got data from file.');

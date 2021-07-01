@@ -7,7 +7,8 @@ const compression = require('compression');
 const errorhandler = require('errorhandler');
 const basicAuth = require('express-basic-auth');
 const user = require('./lib/user.js');
-const navigation = require('./extension/navigation.js');
+require('./extension/navigation.js');
+require('./extension/date.js');
 
 app.set('views', './views');
 app.set("twig options", {

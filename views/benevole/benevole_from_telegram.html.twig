@@ -9,22 +9,26 @@
         <table class="striped highlight">
             <thead>
                 <tr>
+                    <th>Id</th>
                     <th>Prénom</th>
                     <th>Nom</th>
                     <th>Telegram id</th>
                     <th>Dernière connexion</th>
                     <th>Canaux</th>
+                    <th>Message</th>
                 </tr>
             </thead>
             {% for benevole in listeBenevoles %}
                 <tr>
+                    <td>{{ benevole.id }}</td>
                     <td>{{ benevole.firstName }}</td>
                     <td>{{ benevole.lastName }}</td>
                     <td>{{ benevole.username }}</td>
                     <td>
-                        {{ benevole.lastConnection|date("m/d/Y à H:i:s") }}
+                        {{ timestamp_to_date(benevole.lastConnectionTimeStamp)|date("d/m/Y à H:i:s") }}
                     </td>
                     <td>{{ benevole.channels }}</td>
+                    <td>{{ benevole.message }}</td>
                 </tr>
             {% endfor %}
         </table>

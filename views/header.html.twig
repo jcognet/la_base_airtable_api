@@ -19,6 +19,14 @@
                         Telegram
                     </a>
                 </li>
+                <li{% if is_active(url, "/benevole/benevole_from_telegram") %} class="active"{% endif %}>
+                    <a
+                            href="/benevole/compare_telegram_airtable"
+                            title="Comparaison des utilisateurs airtable & telegram"
+                    >
+                        Comparaison
+                    </a>
+                </li>
             </ul>
         </a>
     </div>

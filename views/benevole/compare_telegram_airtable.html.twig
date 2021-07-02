@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Synchronisation des anciens bénévoles vers la liste principale' %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <h1>Comparaison des bénévoles Telegram & Airtable</h1>
+    <ul class="collapsible">
+        <li class="active">
+            <div class="collapsible-header active">Résumé</div>
+            <div class="collapsible-body">
+                <table class="striped highlight">
+                    <tr>
+                        <td>Bénévoles trouvé·s sur Telegram & Airtable :
+                        <td> {{ listBenevolesBothAirtableTelegram|length }} </td>
+                    </tr>
+                    <tr>
+                        <td>Bénévoles seulement sur Telegram :
+                        <td>{{ nbTelegramRemaining }} / {{ nbTelegramTotal }} </td>
+                    </tr>
+                    <tr>
+                        <td>Bénévoles seulement sur Airtable :
+                        <td> {{ nbAirtableRemaining }} / {{ nbAirtableTotal }}</td>
+                    <tr>
+                </table>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header">
+                Bénévoles sur télégram et
+                Airtable ({{ listBenevolesBothAirtableTelegram|length }})
+            </div>
+            <div class="collapsible-body">
+                <table class="striped highlight">
+                    <thead>
+                    <tr>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Telegram</th>
+                    </tr>
+                    </thead>
+                    {% for benevole in listBenevolesBothAirtableTelegram %}
+                        <tr>
+                            <td>{{ benevole.firstName }}</td>
+                            <td>{{ benevole.lastName }}</td>
+                            <td>{{ benevole.username }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header">Autres bénévoles ({{ listMixBenevoles|length }})</div>
+            <div class="collapsible-body">
+                <table class="striped highlight">
+                    <thead>
+                    <tr>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Telegram</th>
+                        <th>Source</th>
+                    </tr>
+                    </thead>
+                    {% for benevole in listMixBenevoles %}
+                        <tr>
+                            <td>{{ benevole.firstName }}</td>
+                            <td>{{ benevole.lastName }}</td>
+                            <td>{{ benevole.username }}</td>
+                            <td>{{ benevole.origin }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            </div>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.collapsible');
+            var instances = M.Collapsible.init(elems);
+        });
+    </script>
+{% endblock %}

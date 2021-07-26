@@ -107,7 +107,7 @@ const fetchFromTelegram = async () => {
 
     const resAllBenevolesByChannels = await Promise.all(listAllBenevolesByChannel);
 
-    client.disconnect();
+//    client.disconnect();
 
     let benevolesWithChannels = [];
     resAllBenevolesByChannels.map((listAllBenevolesByChannel) => {
@@ -123,14 +123,6 @@ const fetchFromTelegram = async () => {
     });
 
     benevolesWithChannels.sort((a, b) => a.lastConnectionTimeStamp - b.lastConnectionTimeStamp);
-
-    const benevolesJSON = JSON.stringify(benevolesWithChannels);
-
-    try {
-        fs.writeFileSync(benevoleFilePath, benevolesJSON);
-    } catch (err) {
-        console.error(err)
-    }
 
     return benevolesWithChannels;
 };

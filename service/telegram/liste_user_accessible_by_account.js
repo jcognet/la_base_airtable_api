@@ -13,14 +13,14 @@ const stringSession = new StringSession(process.env.TELEGRAM_USER_SESSION);
 
 //  list of analyzed channel
 const LIST_CHANNEL_ID = {
-    '1286842538': 'GDB',
-    '1231642142': 'Bénévoles',
-    '1266573038': 'Bénévoles proches',
-    '1175189547': 'Bar',
-    '1458964230': 'Programmation',
-    '1432464780': 'Logistique',
-    '1227095545': 'Communication',
-    '1180317259': 'Chaine de solidarité'
+    '-1001286842538': 'GDB',
+    '-1001231642142': 'Bénévoles',
+    '-1001266573038': 'Bénévoles proches',
+    '-1001175189547': 'Bar',
+    '-1001458964230': 'Programmation',
+    '-1001432464780': 'Logistique',
+    '-1001227095545': 'Communication',
+    '-1001180317259': 'Chaine de solidarité'
 };
 
 const benevoleFilePath = path.join(__dirname, '/../../data', 'benevole.json');
@@ -100,7 +100,7 @@ const fetchFromTelegram = async () => {
             return benevoles;
         } catch (Error) {
             console.error(Error);
-            console.error(`The account used for querying doesn't access to ${LIST_CHANNEL_ID[channelId]}`)
+            console.error(`The account used for querying doesn't access to ${LIST_CHANNEL_ID[channelId]}(${channelId})`)
             return [];
         }
     });
